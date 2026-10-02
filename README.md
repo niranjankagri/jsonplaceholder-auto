@@ -121,6 +121,8 @@ Results are written to:
 
 `ExtentLogAppender` adds these steps by listening to the existing Log4j2 logger, so nothing extra is needed in the tests. The report also lists the base URL, Java version and OS.
 
+![Extent report of the smoke suite](docs/images/extent-report.png)
+
 To run from an IDE, right-click `smoke-testng.xml` or a test class and choose **Run**. Use the project root as the working directory, because `application-data.properties` is read from there.
 
 ## Configuration
