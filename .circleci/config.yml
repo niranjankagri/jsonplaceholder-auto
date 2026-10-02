@@ -25,3 +25,11 @@ jobs:
       # Show the TestNG results in the CircleCI "Tests" tab
       - store_test_results:
           path: target/surefire-reports
+
+      # Keep the Extent report and the log as downloadable build artifacts
+      - store_artifacts:
+          path: target/extent-reports
+          destination: extent-report
+
+      - store_artifacts:
+          path: log4j-application.log

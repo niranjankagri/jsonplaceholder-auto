@@ -1,11 +1,16 @@
 package com.typicode;
 
+import org.testng.annotations.Listeners;
+
 import com.typicode.api.APIUser;
+import com.typicode.report.ExtentReportListener;
 
 /**
- * Base class for all the tests. This class contains all the common functions required to all tests
+ * Base class for all the tests. This class contains all the common functions required to all tests.
+ * Every test that extends it is written to the Extent report ({@link ExtentReportListener}).
  *
  */
+@Listeners(ExtentReportListener.class)
 public abstract class AbstractBaseTest {
 
 	// One APIUser per test class instance, created on first use

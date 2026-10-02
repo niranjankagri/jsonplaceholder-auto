@@ -1,5 +1,6 @@
 package com.typicode.api.lib.restassuredimpl;
 
+import com.typicode.Util;
 import com.typicode.api.lib.IAPI;
 import com.typicode.api.lib.IResponse;
 
@@ -27,6 +28,7 @@ public class APIImpl implements IAPI {
     
     @Override
     public IResponse requestGet(String relativeURL) {
+    	Util.getLogger().info("GET " + RestAssured.baseURI + relativeURL);
     	httpRequest = RestAssured.given();
         return new ResponseImpl(httpRequest.get(relativeURL));
     }

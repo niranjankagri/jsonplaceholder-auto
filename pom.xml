@@ -45,6 +45,20 @@
 			<artifactId>gson</artifactId>
 			<version>2.13.1</version>
 		</dependency>
+		<!-- HTML test report (see com.typicode.report.ExtentReportListener) -->
+		<dependency>
+			<groupId>com.aventstack</groupId>
+			<artifactId>extentreports</artifactId>
+			<version>5.1.2</version>
+			<exclusions>
+				<!-- Only needed to build ExtentReports itself; its old annotation processor
+				     crashes newer javac versions (TypeTag :: UNKNOWN) when the IDE compiles -->
+				<exclusion>
+					<groupId>org.projectlombok</groupId>
+					<artifactId>lombok</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
 		<!-- Logging (configured in src/main/resources/log4j2.properties) -->
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>

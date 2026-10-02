@@ -17,6 +17,7 @@ This is the original version of the task. A refactored version with a custom HTM
 | Hamcrest | Matchers for validating response bodies |
 | Gson | Mapping JSON responses onto Java objects |
 | Log4j2 | Logging to the console and `log4j-application.log` |
+| ExtentReports | HTML test report |
 | CircleCI | Continuous integration |
 
 ## Project structure
@@ -44,11 +45,14 @@ jsonplaceholder-auto
     │   │   └── lib                    HTTP layer behind interfaces
     │   │       ├── IAPI, IResponse
     │   │       └── restassuredimpl    REST Assured implementation (APIImpl, ResponseImpl)
-    │   └── pojo                       User (+ Address, Company), Post, Comment
+    │   ├── pojo                       User (+ Address, Company), Post, Comment
+    │   └── report
+    │       ├── ExtentReportListener   TestNG listener that writes the Extent report
+    │       └── ExtentLogAppender      Copies log messages into the report as test steps
     ├── main/resources
     │   └── log4j2.properties          Logging configuration
     └── test/java/com/typicode
-        ├── AbstractBaseTest           Parent class of all tests
+        ├── AbstractBaseTest           Parent class of all tests (registers the report listener)
         └── apitests
             ├── Task                   User → posts → comments → email format
             └── APITest                Fetch all users (not in the smoke suite)
@@ -103,8 +107,19 @@ mvn clean test -DsuiteXmlFiles=other-testng.xml
 
 Results are written to:
 
+- `target/extent-reports/ExtentReport.html`: Extent HTML report (see below)
 - `target/surefire-reports/`: TestNG and Surefire reports (`index.html`, `emailable-report.html`)
 - `log4j-application.log`: the full request and assertion log
+
+### Extent report
+
+`ExtentReportListener` is registered with `@Listeners` on `AbstractBaseTest`, so every test class that extends it is reported, whether it runs through Maven, a suite file or the IDE. Each test is one entry, grouped by test class, with its log messages as steps:
+
+- `GET <url>` for every request
+- `PASSED: ...` lines as passed steps and `FAILED: ...` lines as failed steps
+- the assertion error and stack trace when a test fails
+
+`ExtentLogAppender` adds these steps by listening to the existing Log4j2 logger, so nothing extra is needed in the tests. The report also lists the base URL, Java version and OS.
 
 To run from an IDE, right-click `smoke-testng.xml` or a test class and choose **Run**. Use the project root as the working directory, because `application-data.properties` is read from there.
 
@@ -117,6 +132,7 @@ To run from an IDE, right-click `smoke-testng.xml` or a test class and choose **
 | Endpoint paths | the `URL` constant in each resource API class |
 | Email format rule | `CommentApi.verifyEmailFormatInComments` |
 | Log format and output | `src/main/resources/log4j2.properties` |
+| Report path, title and theme | `ExtentReportListener` |
 
 ## Adding a new test
 
@@ -128,7 +144,7 @@ To run from an IDE, right-click `smoke-testng.xml` or a test class and choose **
 
 ## Continuous integration
 
-`.circleci/config.yml` runs the smoke suite with the `cimg/openjdk:17.0` image, caches Maven dependencies between builds, and shows the TestNG results in the CircleCI **Tests** tab.
+`.circleci/config.yml` runs the smoke suite with the `cimg/openjdk:17.0` image, caches Maven dependencies between builds, shows the TestNG results in the CircleCI **Tests** tab, and keeps the Extent report and the log as build artifacts.
 
 ## Known limitations
 
