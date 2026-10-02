@@ -1,0 +1,27 @@
+# CircleCI pipeline: resolve dependencies, run the smoke suite, keep the test results
+version: 2.1
+jobs:
+  build:
+    docker:
+      - image: cimg/openjdk:17.0
+
+    steps:
+
+      - checkout
+
+      # Reuse the Maven repository from earlier builds while pom.xml is unchanged
+      - restore_cache:
+          key: jsonplaceholder-auto-{{ checksum "pom.xml" }}
+
+      - run: mvn dependency:go-offline
+
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: jsonplaceholder-auto-{{ checksum "pom.xml" }}
+
+      - run: mvn clean test -DsuiteXmlFiles=smoke-testng.xml
+
+      # Show the TestNG results in the CircleCI "Tests" tab
+      - store_test_results:
+          path: target/surefire-reports

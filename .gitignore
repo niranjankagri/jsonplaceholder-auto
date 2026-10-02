@@ -1,0 +1,19 @@
+# IDE and tool files
+.idea/
+*.iml
+.dbeaver/
+.classpath
+.project
+.settings/
+.vscode/
+
+# Build output and TestNG reports
+target/
+test-output/
+
+# Log file and its rolled-over backups
+log4j-application.log*
+
+# OS files
+.DS_Store
+Thumbs.db

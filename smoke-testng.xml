@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<!-- Smoke suite run by `mvn test` (see the suiteXmlFiles property in pom.xml) -->
+<suite name="BackEnd API Suite">
+  <test name="Search User Tests">
+    <classes>
+      <!-- User -> posts -> comments -> email format scenario -->
+      <class name="com.typicode.apitests.Task"/>
+    </classes>
+  </test> <!-- Test -->
+</suite> <!-- Suite -->
