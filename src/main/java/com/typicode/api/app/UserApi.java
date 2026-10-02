@@ -30,11 +30,11 @@ public class UserApi {
 	}
 
 	/**
-	 * Fetches all the users (GET /users).
-	 * Uses the URL set in the constructor, so call it before any other request on this {@link APIUser}.
+	 * Fetches all the users (GET /users)
 	 * @return : {@link APIUser} to verify operation
 	 */
 	public APIUser fetchAllUsers() {
+		this.apiUser.setRelativeUrl(URL);
 		this.apiUser.requestGet();
 
 		return this.apiUser;
@@ -42,9 +42,10 @@ public class UserApi {
 
 	/**
 	 * Searches for user as specified username (GET /users?username=...).
-	 * Checks the status code, that every user has an id and that every username matches (ignoring case).
+	 * Checks the status code, that every user has an id, that every username matches (ignoring case)
+	 * and that exactly one user is found (fails the test immediately otherwise).
 	 * @param username : Username to be searched
-	 * @return : first matching {@link User}, or null if none is found
+	 * @return : the matching {@link User}
 	 */
 	public User searchByUserName(String username) {
 		this.apiUser.setRelativeUrl(URL + "?username=" + username);
@@ -55,6 +56,8 @@ public class UserApi {
 					   .verify().responseBodySafely("username", everyItem(is(equalToIgnoringCase(username))), "Username should be " + username)
 					   .getResponse().getResponseBody(new User[]{});
 
-		return users.length > 0 ? users[0] : null;
+		this.apiUser.getAssertUtil().verify(users.length, 1, "Exactly one user should be found with username " + username);
+
+		return users[0];
 	}
 }

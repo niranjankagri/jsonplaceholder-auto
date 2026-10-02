@@ -78,17 +78,16 @@ public class User {
  * Postal address of a {@link User}
  */
 class Address {
-	// Note: the JSON field is "street", so this misspelled field is never filled
-	private String strret;
+	private String street;
 	private String suite;
 	private String city;
 	private String zipcode;
 
-	public String getStrret() {
-		return strret;
+	public String getStreet() {
+		return street;
 	}
-	public void setStrret(String strret) {
-		this.strret = strret;
+	public void setStreet(String street) {
+		this.street = street;
 	}
 
 	public String getSuite() {

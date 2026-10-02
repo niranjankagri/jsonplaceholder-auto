@@ -132,8 +132,6 @@ To run from an IDE, right-click `smoke-testng.xml` or a test class and choose **
 
 ## Known limitations
 
-- Each resource API sets its URL in its constructor, and all of them share one `relativeUrl`. Calling `users().fetchAllUsers()` after another request can hit the wrong endpoint.
-- `searchByUserName` returns `null` when no user matches, which causes a `NullPointerException` in the next step.
 - `APIImpl` sets the global `RestAssured.baseURI`, so tests are not safe to run in parallel.
 - The email regex only allows top-level domains of 2 to 4 letters.
 - `application-data.properties` is read from the working directory, not the classpath.

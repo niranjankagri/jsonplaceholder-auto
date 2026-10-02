@@ -24,18 +24,20 @@ public class Util {
 	 * Reads the values as per defined key-value pairs in application data properties file.
 	 * The file is read from the working directory (the project root when run through Maven).
 	 * @param propKey : Keys as per defined in properties file
-	 * @return : Respective Value of Property Key, or null if the key (or the file) is missing
+	 * @return : Respective Value of Property Key, or null if the key is missing
+	 * @throws IllegalStateException if the file cannot be found or read
 	 */
 	public static String readApplicationData(String propKey) {
 		if(applicationProperties == null) {
-			applicationProperties = new Properties();
+			Properties properties = new Properties();
 			try(InputStream input = new FileInputStream("application-data.properties")) {
-				applicationProperties.load(input);
+				properties.load(input);
 			} catch (FileNotFoundException e) {
-				e.printStackTrace();
+				throw new IllegalStateException("application-data.properties not found in " + System.getProperty("user.dir") + "; run from the project root", e);
 			} catch (IOException e) {
-				e.printStackTrace();
+				throw new IllegalStateException("Cannot read application-data.properties", e);
 			}
+			applicationProperties = properties;
 		}
 		
 		return applicationProperties.getProperty(propKey);

@@ -31,7 +31,7 @@ public class APIUserChecker {
      * @return : {@link APIUser}
      */
     public APIUser responseCode(int responseCode, String message) {
-        Assert.assertEquals(apiUser.getResponse().getStatusCode(), responseCode);
+        Assert.assertEquals(apiUser.getResponse().getStatusCode(), responseCode, message + ". Unexpected response code");
         Util.getLogger().info("PASSED: " + message + ". Response code is " + responseCode);
 
         return this.apiUser;
