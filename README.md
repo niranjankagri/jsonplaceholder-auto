@@ -1,5 +1,7 @@
 # jsonplaceholder-auto
 
+[![Tests](https://github.com/niranjankagri/jsonplaceholder-auto/actions/workflows/tests.yml/badge.svg)](https://github.com/niranjankagri/jsonplaceholder-auto/actions/workflows/tests.yml)
+
 A REST API test automation project built with **Java 17**, **REST Assured** and **TestNG**.
 
 It tests the public [JSONPlaceholder](https://jsonplaceholder.typicode.com) API. The main test finds a user by username, fetches every post that user wrote, fetches every comment on those posts, and checks that each comment's email address is correctly formatted.
@@ -18,12 +20,13 @@ This is the original version of the task. A refactored version with a custom HTM
 | Gson | Mapping JSON responses onto Java objects |
 | Log4j2 | Logging to the console and `log4j-application.log` |
 | ExtentReports | HTML test report |
-| CircleCI | Continuous integration |
+| GitHub Actions, CircleCI | Continuous integration |
 
 ## Project structure
 
 ```
 jsonplaceholder-auto
+├── .github/workflows/tests.yml        GitHub Actions: runs the smoke suite on every push
 ├── .circleci/config.yml               CircleCI pipeline: runs the smoke suite
 ├── application-data.properties        Base URL of the API under test
 ├── pom.xml                            Maven dependencies and plugins
@@ -145,6 +148,8 @@ To run from an IDE, right-click `smoke-testng.xml` or a test class and choose **
 5. Add the test class to `smoke-testng.xml` (or a new suite file).
 
 ## Continuous integration
+
+`.github/workflows/tests.yml` runs the smoke suite on GitHub Actions on every push and pull request (JDK 17, Maven cache) and keeps the Extent report and the log as the run's **test-report** artifact; the badge at the top shows the latest result.
 
 `.circleci/config.yml` runs the smoke suite with the `cimg/openjdk:17.0` image, caches Maven dependencies between builds, shows the TestNG results in the CircleCI **Tests** tab, and keeps the Extent report and the log as build artifacts.
 
