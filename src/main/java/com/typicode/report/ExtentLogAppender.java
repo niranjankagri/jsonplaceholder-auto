@@ -17,6 +17,7 @@ import com.aventstack.extentreports.ExtentTest;
  */
 public class ExtentLogAppender extends AbstractAppender {
 
+	/** Created only by register(); named "Extent", no layout or filter. */
 	private ExtentLogAppender() {
 		super("Extent", null, null, true, Property.EMPTY_ARRAY);
 	}
@@ -36,6 +37,10 @@ public class ExtentLogAppender extends AbstractAppender {
 		context.updateLoggers();
 	}
 
+	/**
+	 * Turns one log message into a step of the running test's report entry: PASSED/FAILED prefixes become pass/fail
+	 * steps, anything else an info step.
+	 */
 	@Override
 	public void append(LogEvent event) {
 		ExtentTest test = ExtentReportListener.getCurrentTest();

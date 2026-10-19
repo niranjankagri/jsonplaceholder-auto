@@ -26,6 +26,7 @@ public class APIImpl implements IAPI {
         RestAssured.baseURI = baseURL;
     }
     
+    /** Sends a GET to the base URL plus this path, logs it, and wraps the answer. */
     @Override
     public IResponse requestGet(String relativeURL) {
     	Util.getLogger().info("GET " + RestAssured.baseURI + relativeURL);

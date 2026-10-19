@@ -24,6 +24,7 @@ public class ResponseImpl implements IResponse {
         this.response = response;
     }
     
+    /** Logs the response body (it ends up in the log file and the report). */
     @Override
     public void print() {
         Util.getLogger().info("Response Body: \n" + response.asString());
@@ -34,11 +35,13 @@ public class ResponseImpl implements IResponse {
         return response.getStatusCode();
     }
 
+    /** Values from the JSON body at a JsonPath, for example "id" on a list gives every id. */
     @Override
     public <T> List<T> getResposeBody(String path) {
         return response.body().jsonPath().get(path);
     }
 
+	/** The whole body as an array of the same type as t, for example new User[0] gives User[]. */
 	@Override
 	public <T> Object getResponseBody(T[] t) {
 		// Deserializes the JSON (with Gson) into an array of the same type as t

@@ -88,17 +88,20 @@ public class ExtentReportListener implements ITestListener {
 		return test != null ? test : createTest(result);
 	}
 
+	/** Creates the test's report entry and remembers it for this thread, so log messages land in it. */
 	@Override
 	public void onTestStart(ITestResult result) {
 		currentTest.set(createTest(result));
 	}
 
+	/** Marks the entry passed. */
 	@Override
 	public void onTestSuccess(ITestResult result) {
 		getTest(result).pass("Test passed");
 		currentTest.remove();
 	}
 
+	/** Marks the entry failed, with the exception when there is one (it lists every failed soft assertion). */
 	@Override
 	public void onTestFailure(ITestResult result) {
 		// The throwable lists every failed soft assertion, or the hard assertion that stopped the test
@@ -110,6 +113,7 @@ public class ExtentReportListener implements ITestListener {
 		currentTest.remove();
 	}
 
+	/** Marks the entry skipped, with the reason when there is one. */
 	@Override
 	public void onTestSkipped(ITestResult result) {
 		if(result.getThrowable() != null) {
