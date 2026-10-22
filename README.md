@@ -149,7 +149,7 @@ To run from an IDE, right-click `smoke-testng.xml` or a test class and choose **
 
 ## Continuous integration
 
-`.github/workflows/tests.yml` runs the smoke suite on GitHub Actions on every push and pull request (JDK 17, Maven cache) and keeps the Extent report and the log as the run's **test-report** artifact; the badge at the top shows the latest result.
+`.github/workflows/tests.yml` runs the smoke suite on GitHub Actions on every push and pull request (JDK 17, Maven cache) and keeps the Extent report and the log as the run's **test-report** artifact; the badge at the top shows the latest result. The JUnit XML is kept as the separate **junit-tests** artifact, which [Automation Coverage & Quality Intelligence](https://github.com/niranjankagri/automation-coverage-quality-intelligence) collects. `main` is protected by a ruleset: every change goes through a pull request, and this CI job must pass before it is merged.
 
 `.circleci/config.yml` runs the smoke suite with the `cimg/openjdk:17.0` image, caches Maven dependencies between builds, shows the TestNG results in the CircleCI **Tests** tab, and keeps the Extent report and the log as build artifacts.
 
@@ -160,3 +160,7 @@ To run from an IDE, right-click `smoke-testng.xml` or a test class and choose **
 - `application-data.properties` is read from the working directory, not the classpath.
 
 Most of these are addressed in [api-automation](https://github.com/niranjankagri/api-automation).
+
+## License
+
+[MIT](LICENSE)
