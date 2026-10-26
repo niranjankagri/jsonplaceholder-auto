@@ -31,7 +31,7 @@
 		<dependency>
 			<groupId>io.rest-assured</groupId>
 			<artifactId>rest-assured</artifactId>
-			<version>6.1.0</version>
+			<version>6.2.0</version>
 		</dependency>
 		<!-- Matchers used to validate response bodies -->
 		<dependency>
@@ -43,7 +43,7 @@
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
-			<version>2.13.1</version>
+			<version>2.14.0</version>
 		</dependency>
 		<!-- HTML test report (see com.typicode.report.ExtentReportListener) -->
 		<dependency>
@@ -91,7 +91,7 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<!-- Stay on 3.5.6: 3.6.0 auto-detects the JUnit Platform provider in this project and then
 				     ignores the TestNG suite file and its listeners (the HTML report is not written) -->
-				<version>3.5.6</version>
+				<version>3.6.1</version>
 				<configuration>
 					<suiteXmlFiles>
 						<suiteXmlFile>${suiteXmlFiles}</suiteXmlFile>
