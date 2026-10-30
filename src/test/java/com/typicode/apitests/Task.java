@@ -21,8 +21,8 @@ public class Task extends AbstractBaseTest {
 	/**
 	 * Every email in the comments on Samantha's posts should be in a valid format
 	 */
-	@Test
-	public void validateEmailFormatInCommentsOfSearchedUser() {
+	@Test(description = "[TC-201] Every e-mail in the comments on the searched user's posts is valid")
+	public void tc201_validateEmailFormatInCommentsOfSearchedUser() {
 		// Search for user 'Samantha' and validates response
 		User user = api()
 						.users()
