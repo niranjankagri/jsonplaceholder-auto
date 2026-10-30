@@ -20,8 +20,8 @@ public class APITest extends AbstractBaseTest {
 	/**
 	 * Fetches all users and validates response code & body as not empty or null
 	 */
-	@Test
-	public void fetchUsers() {
+	@Test(description = "[TC-202] All users are returned, each with an id")
+	public void tc202_fetchUsers() {
 		api()
 			.users()
 			.fetchAllUsers()

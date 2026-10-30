@@ -81,7 +81,9 @@ throwAssertionOnFailure();
 
 `responseBodySafely` uses a soft assertion, so a test keeps running and collects every failure. `throwAssertionOnFailure()` at the end of a test reports them all and resets the soft assertions.
 
-### Test scenario: `Task.validateEmailFormatInCommentsOfSearchedUser`
+### Test scenario TC-201: `Task.tc201_validateEmailFormatInCommentsOfSearchedUser`
+
+Both test cases (TC-201, and TC-202 in `APITest`) are written out for a manual run in [docs/manual-test-cases.md](docs/manual-test-cases.md). Test methods start with their case ID (`tc201_...`).
 
 1. Search for the user Samantha (`GET /users?username=Samantha`) and check the status code, id and username.
 2. Get all posts written by that user (`GET /posts?userId={id}`) and check each post's id and userId.
